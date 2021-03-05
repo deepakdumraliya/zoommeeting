@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Zoom WebSDK</title>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.9.0/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.9.0/css/react-select.css" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+</head>
+
+<body>
+    <style>
+        #zmmtg-root{
+            background-color: transparent !important;
+            position: relative  !important;
+        }
+        .sdk-select {
+            height: 34px;
+            border-radius: 4px;
+        }
+
+        .websdktest button {
+            float: right;
+            margin-left: 5px;
+        }
+
+        #nav-tool {
+            margin-bottom: 0px;
+        }
+
+        #show-test-tool {
+            position: absolute;
+            top: 100px;
+            left: 0;
+            display: block;
+            z-index: 99999;
+        }
+
+        #display_name {
+            width: 250px;
+        }
+
+
+        #websdk-iframe {
+            width: 700px;
+            height: 500px;
+            border: 1px;
+            border-color: red;
+            border-style: dashed;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            margin: 0;
+        }
+    </style>
+
+    <div>
+        <div class="container">
+        <div>
+            <table  class= "table" id="meeting">
+                <tr>
+                     <th>Topic</th>
+                    <th>Meeting Id</th>
+                    <th>Password</th>
+                    <th>Join Meeting</th>
+                    
+                </tr>
+        
+        
+        
+            </table>
+           
+            </div>
+            <!--/.navbar-collapse -->
+        </div>
+    </div>
+    <!-- <button class="btn btn-primary" id="createmeeting">Create meeting</button> -->
+    
+    <!-- <script>
+        document.getElementById('show-test-tool-btn').addEventListener("click", function (e) {
+            var textContent = e.target.textContent;
+            if (textContent === 'Show') {
+                document.getElementById('nav-tool').style.display = 'block';
+                document.getElementById('show-test-tool-btn').textContent = 'Hide';
+            } else {
+                document.getElementById('nav-tool').style.display = 'none';
+                document.getElementById('show-test-tool-btn').textContent = 'Show';
+            }
+        })
+    </script> -->
+
+    <script src="https://source.zoom.us/1.9.0/lib/vendor/react.min.js"></script>
+    <script src="https://source.zoom.us/1.9.0/lib/vendor/react-dom.min.js"></script>
+    <script src="https://source.zoom.us/1.9.0/lib/vendor/redux.min.js"></script>
+    <script src="https://source.zoom.us/1.9.0/lib/vendor/redux-thunk.min.js"></script>
+    <script src="https://source.zoom.us/1.9.0/lib/vendor/lodash.min.js"></script>
+    <script src="https://source.zoom.us/zoom-meeting-1.9.0.min.js"></script>
+    <script src="js/tool.js"></script>
+    <script src="js/vconsole.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        
+    $.ajax(
+    {
+        type: "POST",
+        url: "http://test-bh.potenzaglobalsolutions.com/zoommeeting/getallmeeting.php",
+        dataType: 'json',
+        success: function ( result )
+        {
+            $.each( result, function ( i, item )
+            {
+                $( '#meeting' ).append( "<tr><td>" + item.topic+ "</td><td>" + item.meeting_id + "</td><td>" + item.passcode + "</td><td> <button type='button' name=" + item.id +" class='btn btn-primary getmeeting' id=" + item.id +" >Join</button></td></tr>" );
+                console.log( item );
+                // alert( item );
+            } );
+
+    }
+}
+);   
+
+$(document).ready(function(){
+    
+ $(document).on('click','.getmeeting',function(){
+        var val=$(this).attr('id');
+     //   alert(val);
+         $.ajax(
+         {
+                type: "POST",
+                data:{'id':val},
+                url: "http://test-bh.potenzaglobalsolutions.com/zoommeeting/getmeeting.php",
+                dataType: 'json',
+                success: function ( result )
+                {
+                   console.log(result);
+                   websdkready(result.meeting_id,result.passcode);
+                }
+        }
+        );   
+     //  websdkready("99023838760","321");
+    }
+    );   
+});
+// $('#createmeeting').click(function(){
+//     alert('hello');
+// });
+    
+                                                                                            
+    
+    </script>
+</body>
+
+</html> 
+
+                   
+           
